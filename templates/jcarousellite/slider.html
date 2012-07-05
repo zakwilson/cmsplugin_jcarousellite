@@ -1,0 +1,32 @@
+{% load i18n sekizai_tags thumbnail  %}
+
+
+<div class="slider-wrapper">
+    {% if object.show_ribbon %}<div class="ribbon"></div>{% endif %}
+    <div id="jcslider" class="jcslider">
+      <ul class="slider-list">
+        {% for img in images %}
+        <li style="width: 100%;">
+          <img class="slider-img" src="{{img.image.url}}" alt="{{img.name}}" title="{{img.description}}" />
+          <div class="slider-desc">{{img.description}}</div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+</div> <!-- end slider-wrapper -->
+
+{% addtoblock "js" %}
+    <script type="text/javascript" src="{{STATIC_URL}}jcarousellite/jcarousellite_1.0.1.min.js"></script>
+{% endaddtoblock %}
+
+{% addtoblock "js" %}
+<script type="text/javascript">
+  $(function() {
+    $('#jcslider').jCarouselLite({
+    auto: {{ object.pause_time }},
+    speed: {{ object.anim_speed }},
+    visible: 1
+  });
+  });
+</script>
+{% endaddtoblock %}
